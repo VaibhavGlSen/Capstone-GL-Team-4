@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -23,9 +24,7 @@ public class Payments {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private int payment_id;
-	private int booking_id;
-	private int transaction_id;
+    private int payment_id;
 	
 	@OneToOne(
             cascade = CascadeType.ALL,
@@ -33,4 +32,11 @@ public class Payments {
             optional = false)
 @JoinColumn(name = "transaction_id",referencedColumnName = "transaction_id")
 private Transactions transactions;
+	
+	@ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false)
+@JoinColumn(name = "booking_id",referencedColumnName = "booking_id")
+	private BookingDetails bookingDetails;
 }

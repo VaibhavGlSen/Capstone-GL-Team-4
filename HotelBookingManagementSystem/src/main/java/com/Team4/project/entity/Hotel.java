@@ -23,7 +23,7 @@ public class Hotel {
 	private String city;
 	private String hotel_name;
 	private String address;
-	private String descreption;
+	private String description;
 	private double avg_rate_per_day;
 	private String email;
 	private String phone1;

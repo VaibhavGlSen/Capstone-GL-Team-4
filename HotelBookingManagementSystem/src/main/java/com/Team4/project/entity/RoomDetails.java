@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,6 @@ public class RoomDetails {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int room_id;
-	private int hotel_id;
 	private String room_no;
 	private String room_type;
 	private double rate_per_day;
@@ -40,5 +40,14 @@ public class RoomDetails {
             referencedColumnName = "hotel_id"
     )
 	private Hotel hotel;
+	
+	@ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "booking_id",
+            referencedColumnName = "booking_id"
+    )
+    private BookingDetails bookingDetails;
 
 }

@@ -27,9 +27,6 @@ public class BookingDetails {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int booking_id;
-	private int hotel_id;
-	private int room_id;
-	private int user_id;
 	private Date booked_from;
 	private Date booked_to;
 	private int no_of_adults;
@@ -43,23 +40,8 @@ public class BookingDetails {
 	@JoinColumn(name = "user_id",referencedColumnName = "user_id")
 	private User user;
 	 
-	 @OneToMany(
-	            cascade = CascadeType.ALL
-	    )
-	    @JoinColumn(
-	            name = "payment_id",
-	            referencedColumnName = "payment_id"
-	    )
-	    private Payments payments;
+	
 	 
-	 @OneToMany(
-	            cascade = CascadeType.ALL
-	    )
-	    @JoinColumn(
-	            name = "room_id",
-	            referencedColumnName = "room_id"
-	    )
-	    private RoomDetails roomDetails;
 
 	 @OneToOne(
 	            cascade = CascadeType.ALL,
