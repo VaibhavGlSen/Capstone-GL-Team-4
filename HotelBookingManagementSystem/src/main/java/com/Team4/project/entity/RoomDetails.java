@@ -32,22 +32,13 @@ public class RoomDetails {
 	private Boolean isavailable;
 	private Blob photo;
 	
-	@ManyToOne(
-            cascade = CascadeType.ALL
-    )
+	 @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(
             name = "hotel_id",
             referencedColumnName = "hotel_id"
     )
 	private Hotel hotel;
 	
-	@ManyToOne(
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(
-            name = "booking_id",
-            referencedColumnName = "booking_id"
-    )
-    private BookingDetails bookingDetails;
+	
 
 }

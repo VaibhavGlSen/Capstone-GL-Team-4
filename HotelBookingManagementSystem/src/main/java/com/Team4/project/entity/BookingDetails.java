@@ -1,6 +1,7 @@
 package com.Team4.project.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -40,7 +42,8 @@ public class BookingDetails {
 	@JoinColumn(name = "user_id",referencedColumnName = "user_id")
 	private User user;
 	 
-	
+	 @OneToMany(cascade = CascadeType.MERGE)
+	    private List<RoomDetails> roomDetails;
 	 
 
 	 @OneToOne(
