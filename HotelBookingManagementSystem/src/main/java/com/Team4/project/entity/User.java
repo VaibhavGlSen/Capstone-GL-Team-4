@@ -1,6 +1,5 @@
 package com.Team4.project.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,30 +14,23 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-	@Column(name="UserId")
 	int user_id;
 	
-	@Column(name="Username")
 
 	String user_name;
 	
-	@Column(name="Email")
 
 	String email;
 	
-	@Column(name="Password")
 
 	String password;
 	
-	@Column(name="Role")
 
 	String role;
 
-	@Column(name="Mobile")
 
 	String mobile;
 
-	@Column(name="Address")
 
 	String address;
 	
