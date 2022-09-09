@@ -1,6 +1,7 @@
 package com.Team4.project.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Team4.project.entity.Hotel;
+import com.Team4.project.repository.HotelRepo;
 import com.Team4.project.service.HotelService;
 
 @RestController
@@ -22,6 +24,9 @@ public class HotelController {
 	
 	@Autowired
 	HotelService service;
+	
+	@Autowired
+	HotelRepo repo;
 	
 	@PostMapping("/")
 	public Hotel addHotel(@RequestBody Hotel hotel) {
@@ -56,7 +61,7 @@ public class HotelController {
 	}
 	
 	
-	//Get Rooms by roomId
+	//Get hotels by hotel Id
 	
 	@GetMapping("/{hotel_id}")
 	public Hotel showHotelsById(@PathVariable int hotel_id,@RequestBody Hotel hotel) {
@@ -64,6 +69,18 @@ public class HotelController {
 		this.service.showHotelsById(hotel, hotel_id);
 		return hotel;
 	}
+	
+	
+	@GetMapping("/name/{name}")
+	public List<Hotel> getHotelbyName(@PathVariable("name") String name) {
+		List<Hotel> hotel = repo.findAll();
+
+		List<Hotel> hotelName  = hotel.stream().filter(e -> e.getHotel_name().equalsIgnoreCase(name)).collect(Collectors.toList());
+
+		return hotelName;
+	}
+	
+	
 	
 	
 
