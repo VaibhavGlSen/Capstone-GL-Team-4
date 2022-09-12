@@ -1,153 +1,99 @@
 package com.Team4.project.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name="user")
+@Table(	name = "users", 
+		uniqueConstraints = { 
+			@UniqueConstraint(columnNames = "username"),
+			@UniqueConstraint(columnNames = "email") 
+		})
 public class User {
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
-	int user_id;
-	
-
-	String user_name;
-	
-
-	String email;
-	
-
-	String password;
-	
-
-	String role;
-
-
-	String mobile;
-
-
-	String address;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank
+	@Size(max = 20)
+	private String username;
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
+	@NotBlank
+	@Size(max = 120)
+	private String password;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 	
 	@OneToOne
-	BookingDetails bookingDetail;
-
-
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
+	BookingDetails bookingDetails;
+	public BookingDetails getBookingDetails() {
+		return bookingDetails;
 	}
-
-
-	public User(int user_id, String user_name, String email, String password, String role, String mobile,
-			String address, BookingDetails bookingDetail) {
-		super();
-		this.user_id = user_id;
-		this.user_name = user_name;
+	public void setBookingDetails(BookingDetails bookingDetails) {
+		this.bookingDetails = bookingDetails;
+	}
+	public User() {
+	}
+	public User(String username, String email, String password) {
+		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.role = role;
-		this.mobile = mobile;
-		this.address = address;
-		this.bookingDetail = bookingDetail;
 	}
-
-
-	public int getUser_id() {
-		return user_id;
+	
+	
+	
+	
+	
+	public User(BookingDetails bookingDetails) {
+		super();
+		this.bookingDetails = bookingDetails;
 	}
-
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public Long getId() {
+		return id;
 	}
-
-
-	public String getUser_name() {
-		return user_name;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public String getUsername() {
+		return username;
 	}
-
-
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getEmail() {
 		return email;
 	}
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-	public String getRole() {
-		return role;
+	public Set<Role> getRoles() {
+		return roles;
 	}
-
-
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-
-
-	public String getMobile() {
-		return mobile;
-	}
-
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public BookingDetails getBookingDetail() {
-		return bookingDetail;
-	}
-
-
-	public void setBookingDetail(BookingDetails bookingDetail) {
-		this.bookingDetail = bookingDetail;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [user_id=" + user_id + ", user_name=" + user_name + ", email=" + email + ", password=" + password
-				+ ", role=" + role + ", mobile=" + mobile + ", address=" + address + ", bookingDetail=" + bookingDetail
-				+ "]";
-	}
-	
-	
-	
-	
-
 }
