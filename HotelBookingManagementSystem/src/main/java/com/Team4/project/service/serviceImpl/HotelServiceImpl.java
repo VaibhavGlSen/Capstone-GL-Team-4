@@ -39,7 +39,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel showHotel(int id) {
-		return repo.findById(id).orElseThrow();
+		return repo.findById(id).get();
 	}
 
 }
