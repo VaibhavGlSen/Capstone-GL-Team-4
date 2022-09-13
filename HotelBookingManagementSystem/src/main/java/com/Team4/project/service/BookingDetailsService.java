@@ -1,6 +1,7 @@
 package com.Team4.project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public BookingDetails addBookingDetails(BookingDetails bookingDetails);
 	
 	public List<BookingDetails> showAllBookingDetails(BookingDetails bookingDetails);
 	
-	public BookingDetails showBookingDetailsById(BookingDetails bookingDetails,int Id);
+	public BookingDetails showBookingDetailsById(int booking_id);
 	
 	
 	

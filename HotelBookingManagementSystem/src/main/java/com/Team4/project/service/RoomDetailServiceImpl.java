@@ -1,12 +1,14 @@
 package com.Team4.project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.Team4.project.entity.RoomDetails;
+import com.Team4.project.exception.RoomDetailsNotFoundException;
 import com.Team4.project.repository.RoomDetailsRepo;
 
 @Service
@@ -47,11 +49,17 @@ public class RoomDetailServiceImpl implements RoomDetailService{
 		return this.repo.findAll();
 	}
 
+	
+	
+	//---------------------------------------------------//
+	//show room details by Id
 	@Override
 	public RoomDetails showRoomDetailsById(RoomDetails roomDetails, int room_id) {
-	RoomDetails currentRoom=this.repo.findById(room_id).orElseThrow();
+	Optional<RoomDetails> currentRoom=this.repo.findById(room_id);
 	
-	return currentRoom;
+	if(!currentRoom.isPresent())
+		throw new RoomDetailsNotFoundException();
+	return currentRoom.get();
 		
 	}
 	

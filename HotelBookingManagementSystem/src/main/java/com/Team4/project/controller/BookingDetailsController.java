@@ -53,11 +53,11 @@ public class BookingDetailsController {
 	
 	//get bookingDetails by Id
 	
-	@GetMapping("/bookings/{booking_id}")
+	@GetMapping("/id/{booking_id}")
 	public BookingDetails showBookingDetailsById(@PathVariable int booking_id,@RequestBody BookingDetails bookingDetails) {
 		
-		this.service.showBookingDetailsById(bookingDetails, booking_id);
-		return bookingDetails;
+		return 	this.service.showBookingDetailsById(booking_id);
+		
 	}
 	
 	

@@ -24,7 +24,7 @@ public class RoomDetailsController {
 	RoomDetailService service;
 	
 	@PostMapping("/")
-	public RoomDetails addRoomDetails(@RequestBody RoomDetails roomDetails) {
+	public RoomDetails addRoomDetails(@RequestBody RoomDetails roomDetails){
 		
 	 this.service.addRoomDetails(roomDetails);
 	 return roomDetails;
@@ -61,8 +61,8 @@ public class RoomDetailsController {
 	@GetMapping("/rooms/{room_id}")
 	public RoomDetails showRoomDetailsById(@PathVariable int room_id,@RequestBody RoomDetails roomDetails) {
 		
-		this.service.showRoomDetailsById(roomDetails, room_id);
-		return roomDetails;
+	return	this.service.showRoomDetailsById(roomDetails, room_id);
+		
 	}
 	
 	

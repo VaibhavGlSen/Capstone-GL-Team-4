@@ -20,7 +20,7 @@ public ResponseEntity<Hotel> updateHotel(int hotel_id,Hotel hotel);
 	
 	public List<Hotel> showAllHotels(Hotel hotel);
 	
-	public Hotel showHotelsById(Hotel hotel,int Id);
+	public Hotel showHotelsById(int hotel_id);
 	
 
 }

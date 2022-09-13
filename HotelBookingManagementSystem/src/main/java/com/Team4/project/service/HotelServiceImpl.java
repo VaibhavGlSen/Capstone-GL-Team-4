@@ -2,6 +2,7 @@ package com.Team4.project.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.Team4.project.entity.BookingDetails;
 import com.Team4.project.entity.Hotel;
 import com.Team4.project.entity.RoomDetails;
+import com.Team4.project.exception.HotelsNotFoundException;
 import com.Team4.project.repository.BookingDetailsRepo;
 import com.Team4.project.repository.HotelRepo;
 import com.Team4.project.repository.RoomDetailsRepo;
@@ -73,12 +75,18 @@ updateHotel.setBookingDetails(hotel.getBookingDetails());
 	public List<Hotel> showAllHotels(Hotel hotel) {
 		return this.hotelrepo.findAll();
 	}
-
+	
+	
+	
+	//--------------------------------------------------------//
+	//show hotels by Id
 	@Override
-	public Hotel showHotelsById(Hotel hotel, int hotel_id) {
-Hotel hotelById=this.hotelrepo.findById(hotel_id).orElseThrow();
+	public Hotel showHotelsById( int hotel_id) {
+Optional<Hotel> hotelById=this.hotelrepo.findById(hotel_id);
 		
-		return hotelById;
+				if(!hotelById.isPresent())
+			throw new HotelsNotFoundException();
+		return hotelById.get();
 	}
 
 }
