@@ -22,7 +22,8 @@ public class User {
 	
 	
 	@Column
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
 	
 	@Column
@@ -38,7 +39,7 @@ public class User {
 	}
 
 
-	public User(int user_id, String user_name, String email, String password, String role, String mobile,
+	public User(int user_id, String user_name, String email, String password, Role role, String mobile,
 			String address) {
 		super();
 		this.user_id = user_id;
@@ -91,12 +92,12 @@ public class User {
 	}
 
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
