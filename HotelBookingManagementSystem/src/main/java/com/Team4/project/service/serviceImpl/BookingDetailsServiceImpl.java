@@ -1,11 +1,13 @@
 package com.Team4.project.service.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.Team4.project.entity.BookingDetails;
+import com.Team4.project.exception.BookingsNotFoundException;
 import com.Team4.project.repository.IBookingDetailsRepository;
 import com.Team4.project.service.services.BookingDetailsService;
 
@@ -39,7 +41,9 @@ public class BookingDetailsServiceImpl implements BookingDetailsService{
 
 	@Override
 	public BookingDetails showBookingDetails(int id) {
-		return repo.findById(id).get();
-	}
+		Optional<BookingDetails>details=repo.findById(id);
+		if(!details.isPresent())
+			throw new BookingsNotFoundException();
+		return details.get();	}
 
 }
