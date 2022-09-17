@@ -1,6 +1,8 @@
 package com.Team4.project.service.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,8 +40,15 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Hotel showHotel(int id) {
-		return repo.findById(id).orElseThrow();
+	public Optional<Hotel> showHotel(int id) {
+		return repo.findById(id);
 	}
 
+	@Override
+	public List<Hotel> getHotelByHotel_name(String hotel_name) {
+		List<Hotel> hotels = repo.findAll();
+		List<Hotel> hotelName  = hotels.stream().filter(e -> e.getHotel_name().equalsIgnoreCase(hotel_name)).collect(Collectors.toList());
+		
+		return hotelName;
+	}
 }
