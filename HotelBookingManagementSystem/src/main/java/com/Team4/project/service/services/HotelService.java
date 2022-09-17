@@ -1,6 +1,7 @@
 package com.Team4.project.service.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public interface HotelService {
 	
 	public List<Hotel> showAllHotels();
 	
-	public Hotel showHotel(int id);
+	public Optional<Hotel> showHotel(int id);
+	
+	public List<Hotel> getHotelByHotel_name(String hotel_name);
 	
 }

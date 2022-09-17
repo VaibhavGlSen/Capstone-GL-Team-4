@@ -7,5 +7,5 @@ import com.Team4.project.entity.Hotel;
 
 @Repository
 public interface IHotelRepository extends JpaRepository<Hotel, Integer> {
-
+	
 }
