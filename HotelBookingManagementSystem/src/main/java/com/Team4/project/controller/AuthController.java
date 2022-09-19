@@ -4,13 +4,11 @@ import com.Team4.project.entity.Role;
 import com.Team4.project.entity.User;
 import com.Team4.project.entity.request.SignInRequest;
 import com.Team4.project.entity.request.SignUpRequest;
-import com.Team4.project.entity.response.JwtResponse;
 import com.Team4.project.entity.response.MessageResponse;
 import com.Team4.project.jwt.JwtUtil;
 import com.Team4.project.service.serviceImpl.jwt.UserDetailsImpl;
 import com.Team4.project.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,19 +39,20 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser( @RequestBody SignUpRequest signUpRequest) {
 
-        if(userService.getUserByUser_name(signUpRequest.getUser_name()) !=null){
+        if(userService.getUserByUser_name(signUpRequest.getUser_name()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username already exists!"));
+            
         }
 
-        if(userService.getUserByEmail(signUpRequest.getEmail())!=null){
+        if(userService.getUserByEmail(signUpRequest.getEmail()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email already exists!"));
         }
 
-        if(userService.getUserByMobile(signUpRequest.getMobile())!=null){
+        if(userService.getUserByMobile(signUpRequest.getMobile()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Mobile already exists!"));

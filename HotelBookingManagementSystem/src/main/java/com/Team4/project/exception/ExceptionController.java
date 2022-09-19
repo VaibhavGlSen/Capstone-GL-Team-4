@@ -7,37 +7,33 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
    public class ExceptionController {
-	 @ExceptionHandler(value = ResourceNotFoundException.class)
-	   public ResponseEntity<Object> exception(ResourceNotFoundException exception) {
-	      return new ResponseEntity<>("Resource not found with the entered Hotel Id", HttpStatus.NOT_FOUND);
-	   }
-	 
-	 
-	 @ExceptionHandler(value = BookingsNotFoundException.class)
-	   public ResponseEntity<Object> exception(BookingsNotFoundException exception) {
-	      return new ResponseEntity<>("Bookings not found with the entered booking Id", HttpStatus.NOT_FOUND);
-	   }
-	 
-	 
-	 
-	 @ExceptionHandler(value = HotelsNotFoundException.class)
-	   public ResponseEntity<Object> exception(HotelsNotFoundException exception) {
-	      return new ResponseEntity<>("Hotels not found with this Hotel Id", HttpStatus.NOT_FOUND);
-	   }
-	 
-	 
-	 
-	 @ExceptionHandler(value = RoomDetailsNotFoundException.class)
-	   public ResponseEntity<Object> exception(RoomDetailsNotFoundException exception) {
-	      return new ResponseEntity<>("Room details not found with the following Room Id", HttpStatus.NOT_FOUND);
-	   }
-	 
-	 
-	 @ExceptionHandler(value = UserNotFoundException.class)
-	   public ResponseEntity<Object> exception(UserNotFoundException exception) {
-	      return new ResponseEntity<>("User not found with the entered User Id", HttpStatus.NOT_FOUND);
-	   }
-	 
+	@ExceptionHandler(value = ResourceNotFoundException.class)
+	public ResponseEntity<Object> exception(ResourceNotFoundException exception){
+		return new ResponseEntity<>("Resource not found with the entered Hotel Id",HttpStatus.NOT_FOUND);	
+	}
+	
+	@ExceptionHandler(value = HotelsNotFoundException.class)
+	public ResponseEntity<Object> exception(HotelsNotFoundException exception){
+		return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@ExceptionHandler(value = BookingsNotFoundException.class)
+	public ResponseEntity<Object> exception(BookingsNotFoundException exception){
+	    return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = UserNotFoundException.class)
+	public ResponseEntity<Object> exception(UserNotFoundException exception){
+		return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+		
+	}
+	
+	@ExceptionHandler(value = RoomDetailsNotFoundException.class)
+	public ResponseEntity<Object> exception(RoomDetailsNotFoundException exception){
+		return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+		
+	}
 	 
 	 
 	

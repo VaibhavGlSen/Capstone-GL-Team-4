@@ -1,6 +1,7 @@
 package com.Team4.project.service.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,5 @@ public interface RoomDetailsService {
 	
 	public List<RoomDetails> showAllRoomDetails();
 	
-	public RoomDetails showRoomDetails(int id);
+	public Optional<RoomDetails> showRoomDetails(int id);
 }

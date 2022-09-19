@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.Team4.project.entity.RoomDetails;
-import com.Team4.project.exception.RoomDetailsNotFoundException;
 import com.Team4.project.repository.IRoomDetailsRepository;
 import com.Team4.project.service.services.RoomDetailsService;
 
@@ -40,12 +39,10 @@ public class RoomDetailsServiceImpl implements RoomDetailsService{
 	}
 
 	@Override
-	public RoomDetails showRoomDetails(int id) {
-		Optional<RoomDetails> currentRoom=this.repo.findById(id);
+	public Optional<RoomDetails> showRoomDetails(int id) {
+		return this.repo.findById(id);
 		
-		if(!currentRoom.isPresent())
-			throw new RoomDetailsNotFoundException();
-		return currentRoom.get();
+		
 	}
 
 }

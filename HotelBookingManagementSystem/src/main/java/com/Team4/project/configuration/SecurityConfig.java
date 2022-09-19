@@ -50,12 +50,12 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 
     //End points which can be accessed only by CUSTOMER
     public static final String[] WHITELIST_ONLY_CUSTOMER ={
-            "/room/**"
     };
 
     //End points which can be accessed by both ADMIN and CUSTOMER
     public static final String[] WHITELIST_ADMIN_AND_CUSTOMER ={
-            "/hotel/**"
+            "/hotel/**",
+    		"/room/**"
     };
 
     //For filtering valid tokens
