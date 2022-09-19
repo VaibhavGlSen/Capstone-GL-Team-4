@@ -40,7 +40,7 @@ public class RoomController {
 		
 		Optional<RoomDetails>roomById=roomservice.showRoomDetails(id);
 		
-		if(!roomById.isEmpty())
+		if(roomById.isEmpty())
 			throw new RoomDetailsNotFoundException("Room with Id "+ id+" does not exist");
 		
 		RoomDetails updateRoom=roomById.get();
