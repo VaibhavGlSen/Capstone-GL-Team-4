@@ -2,12 +2,12 @@ package com.Team4.project.service.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.Team4.project.entity.Hotel;
+import com.Team4.project.exception.HotelsNotFoundException;
 import com.Team4.project.repository.IHotelRepository;
 import com.Team4.project.service.services.HotelService;
 
@@ -40,15 +40,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Optional<Hotel> showHotel(int id) {
-		return repo.findById(id);
-	}
-
-	@Override
-	public List<Hotel> getHotelByHotel_name(String hotel_name) {
-		List<Hotel> hotels = repo.findAll();
-		List<Hotel> hotelName  = hotels.stream().filter(e -> e.getHotel_name().equalsIgnoreCase(hotel_name)).collect(Collectors.toList());
+	public Hotel showHotel(int id) {
+		Optional<Hotel> hotelById=this.repo.findById(id);
 		
-		return hotelName;
-	}
+		if(!hotelById.isPresent())
+	throw new HotelsNotFoundException();
+return hotelById.get();	}
+
 }

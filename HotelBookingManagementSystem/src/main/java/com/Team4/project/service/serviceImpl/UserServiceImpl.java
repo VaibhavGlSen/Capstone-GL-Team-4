@@ -1,72 +1,78 @@
 package com.Team4.project.service.serviceImpl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import com.Team4.project.entity.Hotel;
+import com.Team4.project.entity.User;
+import com.Team4.project.exception.UserNotFoundException;
+import com.Team4.project.repository.IUserRepository;
+import com.Team4.project.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.Team4.project.entity.User;
-import com.Team4.project.repository.IUserRepository;
-import com.Team4.project.service.services.UserService;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
-	IUserRepository repo;
+	IUserRepository userRepository;
 
 	@Override
 	public List<User> getAllUsers() {
-		return repo.findAll();
-	}
-	
-	@Override
-	public Optional<User> showUser(int id) {
-		return repo.findById(id);
+		return userRepository.findAll();
 	}
 
+	@Override
+	public User showUser(int id) {
+		Optional<User> UserById = this.userRepository.findById(id);
+
+		if (!UserById.isPresent())
+			throw new UserNotFoundException();
+		return UserById.get();
+	}
 
 	@Override
 	public User addUser(User user) {
-		return repo.save(user);
+		// TODO : yet to be completed
+		return userRepository.save(user);
 	}
 
 	@Override
 	public String removeUser(int id) {
-		repo.deleteById(id);
+		userRepository.deleteById(id);
 		return "User has been deleted";
 	}
 
 	@Override
 	public User updateUser(User user) {
-		repo.save(user);
+		userRepository.save(user);
 		return user;
 	}
 
 	@Override
-	public List<User> getUserByUser_name(String user_name) {
-		List<User> users = repo.findAll();
-		List<User> userList = users.stream().filter(e -> e.getUser_name().equalsIgnoreCase(user_name)).collect(Collectors.toList());
-		
-		return userList;
+	public User getUserByUser_name(String user_name) {
+		List<User> users = getAllUsers();
+		for (User user : users)
+			if (user.getUser_name().equalsIgnoreCase(user_name))
+				return user;
+		return null;
 	}
 
 	@Override
-	public List<User> getUserByEmail(String email) {
-		List<User> users = repo.findAll();
-		List<User> userList = users.stream().filter(e -> e.getUser_name().equalsIgnoreCase(email)).collect(Collectors.toList());
-		
-		return userList;
+	public User getUserByEmail(String email) {
+		List<User> users = getAllUsers();
+		for (User user : users)
+			if (user.getEmail().equalsIgnoreCase(email))
+				return user;
+		return null;
 	}
 
 	@Override
-	public List<User> getUserByMobile(String mobile) {
-		List<User> users = repo.findAll();
-		List<User> userList = users.stream().filter(e -> e.getUser_name().equalsIgnoreCase(mobile)).collect(Collectors.toList());
-		
-		return userList;
+	public User getUserByMobile(String mobile) {
+		List<User> users = getAllUsers();
+		for (User user : users)
+			if (user.getMobile().equals(mobile))
+				return user;
+		return null;
 	}
-
 }
