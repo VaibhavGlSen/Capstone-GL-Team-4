@@ -1,18 +1,16 @@
 package com.Team4.project.service.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.Team4.project.entity.User;
 import org.springframework.stereotype.Service;
 
-import com.Team4.project.entity.User;
+import java.util.List;
 
 @Service
 public interface UserService {
-	
-	public List<User> getAllUsers();
 
-    public Optional<User> showUser(int id);
+    public List<User> getAllUsers();
+
+    public User showUser(int id);
 
     public User addUser(User user);
 
@@ -20,9 +18,10 @@ public interface UserService {
 
     public User updateUser(User user);
 
-    public List<User> getUserByUser_name(String user_name);
+    public User getUserByUser_name(String user_name);
 
-    public List<User> getUserByEmail(String email);
+    public User getUserByEmail(String email);
 
-    public List<User> getUserByMobile(String mobile);
+    public User getUserByMobile(String mobile);
+
 }
