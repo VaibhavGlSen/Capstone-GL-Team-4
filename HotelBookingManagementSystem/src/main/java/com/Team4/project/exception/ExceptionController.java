@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionController {
-	
+   public class ExceptionController {
 	@ExceptionHandler(value = ResourceNotFoundException.class)
 	public ResponseEntity<Object> exception(ResourceNotFoundException exception){
 		return new ResponseEntity<>("Resource not found with the entered Hotel Id",HttpStatus.NOT_FOUND);	
@@ -21,7 +20,7 @@ public class ExceptionController {
 	
 	@ExceptionHandler(value = BookingsNotFoundException.class)
 	public ResponseEntity<Object> exception(BookingsNotFoundException exception){
-	    return new ResponseEntity<>("Bookings not found with the entered booking Id", HttpStatus.NOT_FOUND);
+	    return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(value = UserNotFoundException.class)
@@ -32,7 +31,11 @@ public class ExceptionController {
 	
 	@ExceptionHandler(value = RoomDetailsNotFoundException.class)
 	public ResponseEntity<Object> exception(RoomDetailsNotFoundException exception){
-		return new ResponseEntity<>("Room details not found with the following Room Id", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
 		
 	}
+	 
+	 
+	
+	
 }

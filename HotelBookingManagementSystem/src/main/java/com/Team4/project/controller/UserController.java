@@ -1,38 +1,46 @@
 package com.Team4.project.controller;
 
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.Team4.project.entity.User;
 import com.Team4.project.exception.UserNotFoundException;
 import com.Team4.project.service.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	
-	@Autowired
-	UserService userservice;
-	
-	@GetMapping("/")
+
+    @Autowired
+    UserService userservice;
+
+    @GetMapping("/")
 	public List<User> showUsers(){
 		return userservice.getAllUsers();
 	}
-	
-	
+    
+    
+    
+
 	@PostMapping("/")
 	public User addUser(@RequestBody User user) {
-		Optional<User> userById = userservice.showUser(user.getUser_id());
-		List<User> userByName = userservice.getUserByUser_name(user.getUser_name());
-		
+		Optional<User> userById = userservice.showUser(user.getUser_id());		
 		if(userById.isPresent())
 			throw new UserNotFoundException("user with id "+user.getUser_id()+" exists");
-		else if(!userByName.isEmpty())
-			throw new UserNotFoundException("user with this name already registered");
+		
 		return userservice.addUser(user);
 	}
+	
+	
 	
 	
 	@PutMapping("/")
@@ -47,6 +55,7 @@ public class UserController {
 		if(!user.isPresent())
 			throw new UserNotFoundException("User with id "+id+" not exists");
 		return userservice.removeUser(id);
+		
 	}
 	
 	
@@ -59,14 +68,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/name/{name}")
-	public List<User> getUserbyName(@PathVariable("name") String name) {
-		List<User> user = userservice.getUserByUser_name(name);
 
-		if (user.isEmpty())
-			throw new UserNotFoundException("User does not exist");
-		return user;
-	}
 	
 	
 	@GetMapping("/mobile/{mobile_no}")
@@ -85,4 +87,5 @@ public class UserController {
 			throw new UserNotFoundException("User does not exist");
 		return user;
 	}
+    
 }

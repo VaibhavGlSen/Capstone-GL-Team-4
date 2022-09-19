@@ -21,5 +21,6 @@ public interface HotelService {
 	public Optional<Hotel> showHotel(int id);
 	
 	public List<Hotel> getHotelByHotel_name(String hotel_name);
+
 	
 }

@@ -3,6 +3,7 @@ package com.Team4.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class HotelController {
 	
 	@PostMapping("/")
 	public Hotel addHotel(@RequestBody Hotel hotel) {
+		
 		Optional<Hotel> hotelById = hotelservice.showHotel(hotel.getHotel_id());
 		List<Hotel> hotelByName = hotelservice.getHotelByHotel_name(hotel.getHotel_name());
 		
@@ -81,16 +83,14 @@ public class HotelController {
 		Optional<Hotel> hotel = hotelservice.showHotel(id);
 		if(hotel.isEmpty())
 			throw new HotelsNotFoundException("hotel with id "+id+" not exists");
-		return hotelservice.removeHotel(id);
-	}
+		return hotelservice.removeHotel(id);	}
 	
 	@GetMapping("/{id}")
 	public Hotel getHotelbyId(@PathVariable("id") int id) {
 		Optional<Hotel> hotel = hotelservice.showHotel(id);
 		if(hotel.isEmpty())
 			throw new HotelsNotFoundException("hotel with id "+id+" not exists");
-		return hotel.get();
-	}
+		return hotel.get();	}
 	
 	@GetMapping("/name/{name}")
 	public List<Hotel> getHotelbyName(@PathVariable("name") String name) {
@@ -98,5 +98,6 @@ public class HotelController {
 		if(hotel.isEmpty())
 			throw new HotelsNotFoundException("Hotel does not exist");
 		return hotel;
+		
 	}
 }

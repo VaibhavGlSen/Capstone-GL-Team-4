@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Builder;
+
 @Entity
+@Builder
 @Table(name="hotel")
 public class Hotel {
 	@Id
@@ -61,6 +64,27 @@ public class Hotel {
 		this.website = website;
 		this.room_details = room_details;
 	}
+	
+	
+	public Hotel(int hotel_id, String city, String hotel_name, String address, String description,
+			double avg_rate_per_day, String email, String phone1, String phone2, String website
+			) {
+		super();
+		this.hotel_id = hotel_id;
+		this.city = city;
+		this.hotel_name = hotel_name;
+		this.address = address;
+		this.description = description;
+		this.avg_rate_per_day = avg_rate_per_day;
+		this.email = email;
+		this.phone1 = phone1;
+		this.phone2 = phone2;
+		this.website = website;
+	}
+
+
+	
+	
 
 	public int getHotel_id() {
 		return hotel_id;

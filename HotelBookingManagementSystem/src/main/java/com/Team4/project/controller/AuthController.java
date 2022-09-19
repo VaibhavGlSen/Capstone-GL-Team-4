@@ -39,19 +39,20 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser( @RequestBody SignUpRequest signUpRequest) {
 
-        if(userService.getUserByUser_name(signUpRequest.getUser_name()) !=null){
+        if(userService.getUserByUser_name(signUpRequest.getUser_name()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username already exists!"));
+            
         }
 
-        if(userService.getUserByEmail(signUpRequest.getEmail())!=null){
+        if(userService.getUserByEmail(signUpRequest.getEmail()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email already exists!"));
         }
 
-        if(userService.getUserByMobile(signUpRequest.getMobile())!=null){
+        if(userService.getUserByMobile(signUpRequest.getMobile()).size()>0){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Mobile already exists!"));

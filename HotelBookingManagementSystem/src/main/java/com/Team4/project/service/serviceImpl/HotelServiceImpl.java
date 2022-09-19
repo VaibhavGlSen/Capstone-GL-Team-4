@@ -42,8 +42,11 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public Optional<Hotel> showHotel(int id) {
 		return repo.findById(id);
-	}
+		
+		
 
+	}
+	
 	@Override
 	public List<Hotel> getHotelByHotel_name(String hotel_name) {
 		List<Hotel> hotels = repo.findAll();
@@ -51,4 +54,5 @@ public class HotelServiceImpl implements HotelService {
 		
 		return hotelName;
 	}
+
 }
