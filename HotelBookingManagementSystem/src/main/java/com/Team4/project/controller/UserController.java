@@ -1,8 +1,17 @@
 package com.Team4.project.controller;
 
+import com.Team4.project.entity.BookingDetails;
+import com.Team4.project.entity.Hotel;
+import com.Team4.project.entity.RoomDetails;
 import com.Team4.project.entity.User;
+import com.Team4.project.exception.BookingsNotFoundException;
 import com.Team4.project.exception.UserNotFoundException;
+import com.Team4.project.repository.IHotelRepository;
+import com.Team4.project.repository.IRoomDetailsRepository;
+import com.Team4.project.repository.IUserRepository;
+import com.Team4.project.service.services.BookingDetailsService;
 import com.Team4.project.service.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +32,23 @@ public class UserController {
 
     @Autowired
     UserService userservice;
+    
+    @Autowired
+    BookingDetailsService bookingService;
+    
+    @Autowired
+    IRoomDetailsRepository roomRepo;
+    
+    @Autowired
+    IUserRepository userRepo;
+    
+    @Autowired
 
+    IHotelRepository hotelRepo;
+    
+    
+
+    //GET method to show all users
     @GetMapping("/")
 	public List<User> showUsers(){
 		return userservice.getAllUsers();
@@ -30,7 +56,7 @@ public class UserController {
     
     
     
-
+    //POST method to add a new User
 	@PostMapping("/")
 	public User addUser(@RequestBody User user) {
 		Optional<User> userById = userservice.showUser(user.getUser_id());		
@@ -42,13 +68,14 @@ public class UserController {
 	
 	
 	
-	
+	//PUT method to update User
 	@PutMapping("/")
 	public User updateUser(@RequestBody User user) {
 		return userservice.updateUser(user);
 	}
 	
 	
+	//Delete method to delete user by Id
 	@DeleteMapping("/{id}")
 	public String deleteUser(@PathVariable("id") int id) {
 		Optional<User> user = userservice.showUser(id);
@@ -58,7 +85,7 @@ public class UserController {
 		
 	}
 	
-	
+	//GET method to fetch User by User Id
 	@GetMapping("/{id}")
 	public User getUserbyId(@PathVariable("id") int id) {
 		Optional<User> user = userservice.showUser(id);
@@ -87,5 +114,48 @@ public class UserController {
 			throw new UserNotFoundException("User does not exist");
 		return user;
 	}
+	
+	
+	//Add Booking Details
+		@PostMapping("/booking/")
+		public BookingDetails addBookingDetails(@RequestBody BookingDetails bookingDetails) {
+			
+			User user=userRepo.findById(bookingDetails.getUser_id()).get();
+			
+			
+			Hotel hotel=hotelRepo.findById(bookingDetails.getHotel_id()).get();
+
+			
+
+			
+			Optional<BookingDetails> bookingsById = bookingService.showBookingDetails(bookingDetails.getBooking_id());
+
+			if(bookingsById.isPresent())
+				throw new BookingsNotFoundException("Booking with Id "+bookingDetails.getBooking_id()+" exists");
+			List<RoomDetails> room = new ArrayList<>();
+			for(RoomDetails a:bookingDetails.getRoom_details()) {
+				RoomDetails r = roomRepo.findById(a.getRoom_id()).get();
+				room.add(r);
+			}
+				
+				bookingDetails.setRoom_details(room);
+				bookingDetails.setUser(user);
+				bookingDetails.setHotel(hotel);
+			this.bookingService.addBookingDetails(bookingDetails);
+			
+			return bookingDetails;
+		}
+		
+		
+		//GET All 
+		@GetMapping("/bookings/all")
+		public List<BookingDetails> listAllBookingDetails(){
+			
+			return this.bookingService.showAllBookingDetails();
+		}
+	
+	
+	
     
-}
+	}
+	
