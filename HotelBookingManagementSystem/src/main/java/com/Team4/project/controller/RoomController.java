@@ -18,6 +18,7 @@ public class RoomController {
 	@Autowired
 	RoomDetailsService roomservice;
 	
+	//POST method to add Room Details
 	@PostMapping("/")
 	public RoomDetails addRoom(@RequestBody RoomDetails room) {
 		Optional<RoomDetails> roomById = roomservice.showRoomDetails(room.getRoom_id());
@@ -29,12 +30,14 @@ public class RoomController {
 		}
 	
 	
+	//GET method to show all room details
 	@GetMapping("/")
 	public List<RoomDetails> showRoom() {
 		return roomservice.showAllRoomDetails();
 	}
 	
 	
+	//PUT method to update room details by Id
 	@PutMapping("/{id}")
 	public ResponseEntity<RoomDetails> updateRoom(@PathVariable("id") int id,@RequestBody RoomDetails room) {
 		
@@ -57,6 +60,7 @@ public class RoomController {
 	}
 	
 	
+	//Delete method to delete room details by Id
 	@DeleteMapping("/{id}")
 	public String deleteRoom(@PathVariable("id") int id) {
 		Optional<RoomDetails> currentRoomById = roomservice.showRoomDetails(id);

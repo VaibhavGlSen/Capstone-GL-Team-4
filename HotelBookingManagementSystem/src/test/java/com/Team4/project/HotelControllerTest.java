@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -65,7 +64,7 @@ public class HotelControllerTest {
 
 	    
 	    
-	    
+	    //TEST method - Hotel added Successfully
 	    @Test
 	    @Order(1)
 	    public void createRecord_success() throws Exception {
@@ -104,6 +103,9 @@ public class HotelControllerTest {
 	        }
 	    
 	    
+	    
+	    //TEST method - All hotels fetched successfully.
+
 	    @Test
 	    @Order(2)
 
@@ -131,6 +133,8 @@ public class HotelControllerTest {
 	    
 	    
 	    
+	    //TEST method - Hotel fetched by Id
+
 	    @Test
 	    @Order(3)
 
@@ -153,8 +157,9 @@ public class HotelControllerTest {
 	    }
 	    
 	    
-	    
-	    
+	   
+	    //TEST method - Hotel updated by Hotel Id
+
 	    @Test
 	    @Order(4)
 
@@ -195,7 +200,8 @@ public class HotelControllerTest {
 	    
 	    
 	    
-	    
+	    //TEST method - Hotel Deleted by Hotel Id
+
 	    @Test
 	    @Order(5)
 

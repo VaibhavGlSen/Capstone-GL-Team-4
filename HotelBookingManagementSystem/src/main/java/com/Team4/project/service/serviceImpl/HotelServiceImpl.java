@@ -16,29 +16,39 @@ public class HotelServiceImpl implements HotelService {
 	@Autowired
 	IHotelRepository repo;
 
+	
+	//add Hotel 
 	@Override
 	public Hotel addHotel(Hotel hotel) {
 		repo.save(hotel);
 		return hotel;
 	}
 
+	
+	//Update Hotel
 	@Override
 	public Hotel updateHotel(Hotel hotel) {
 		repo.save(hotel);
 		return hotel;
 	}
 
+	
+	//Remove Hotel by Id
 	@Override
 	public String removeHotel(int id) {
 		repo.deleteById(id);
 		return "Record has been deleted!";
 	}
 
+	
+	//Fetch all Hotels
 	@Override
 	public List<Hotel> showAllHotels() {
 		return repo.findAll();
 	}
 
+	
+	//Show hotel by Id
 	@Override
 	public Optional<Hotel> showHotel(int id) {
 		return repo.findById(id);
@@ -47,6 +57,8 @@ public class HotelServiceImpl implements HotelService {
 
 	}
 	
+	
+	//get Hotel by Hotel Name
 	@Override
 	public List<Hotel> getHotelByHotel_name(String hotel_name) {
 		List<Hotel> hotels = repo.findAll();

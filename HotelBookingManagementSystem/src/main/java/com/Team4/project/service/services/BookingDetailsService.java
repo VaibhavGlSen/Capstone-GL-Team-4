@@ -1,6 +1,7 @@
 package com.Team4.project.service.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,6 @@ public interface BookingDetailsService {
 	
 	public List<BookingDetails> showAllBookingDetails();
 	
-	public BookingDetails showBookingDetails(int id);
+	public Optional<BookingDetails> showBookingDetails(int id);
 
 }

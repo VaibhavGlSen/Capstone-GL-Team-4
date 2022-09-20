@@ -36,6 +36,8 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    
+    // Handles Signup Request
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser( @RequestBody SignUpRequest signUpRequest) {
 
@@ -58,21 +60,6 @@ public class AuthController {
                     .body(new MessageResponse("Error: Mobile already exists!"));
         }
 
-        //Adding to the user table
-
-        //Lombok
-//        User users = User.builder()
-//                .userName(signUpRequest.getUserName())
-//                .email(signUpRequest.getEmail())
-//                .password(passwordEncoder.encode(signUpRequest.getPassword()))
-//                .role(
-//                        (signUpRequest.getRole().equalsIgnoreCase("ADMIN"))
-//                                ? Role.ADMIN
-//                                : Role.CUSTOMER
-//                )
-//                .address(signUpRequest.getAddress())
-//                .mobile(signUpRequest.getMobile())
-//                .build();
 
         //user made Constructor, getter-setters
         User user = new User();
@@ -89,31 +76,18 @@ public class AuthController {
 
         userService.addUser(user);
 
-        //If the role is admin, adding to the admin table
-//        if(user.getRole()== Role.ADMIN){
-//            Admin admin = Admin.builder()
-//                    .adminId(
-//                            userService
-//                                    .getUserByUsername(user.getUserName())
-//                                    .getUserId()
-//                    )
-//                    .adminName(user.getUserName())
-//                    .password(passwordEncoder.encode(user.getPassword()))
-//                    .build();
-//            adminService.addAdmin(admin);
-//        }
-
-//        return  ResponseEntity.ok(MessageResponse.builder().message("Registered Successfully").build());
+   
         return  ResponseEntity.ok(new MessageResponse("Registered Successfully"));
     }
 
+    
+    //Handles SignIn Request
     @PostMapping("/signIn")
     public String signIn(@RequestBody SignInRequest signInRequest)throws Exception{
 
         if(userService.getUserByUser_name(signInRequest.getUser_name())==null)
             throw new Exception("Username does not exists");
 
-//        final boolean isAdmin= adminService.existsByAdmin_name(signInRequest.getUsername());
 
         Authentication authentication = authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
                 signInRequest.getUser_name(),
