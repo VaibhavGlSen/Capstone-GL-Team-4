@@ -1,7 +1,6 @@
 package com.Team4.project.service.serviceImpl;
 
 import com.Team4.project.entity.User;
-import com.Team4.project.exception.UserNotFoundException;
 import com.Team4.project.repository.IUserRepository;
 import com.Team4.project.service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
