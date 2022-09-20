@@ -2,14 +2,19 @@ package com.Team4.project.controller;
 
 import com.Team4.project.entity.BookingDetails;
 import com.Team4.project.entity.Hotel;
+import com.Team4.project.entity.Payment;
 import com.Team4.project.entity.RoomDetails;
+import com.Team4.project.entity.Transaction;
 import com.Team4.project.entity.User;
 import com.Team4.project.exception.BookingsNotFoundException;
 import com.Team4.project.exception.UserNotFoundException;
 import com.Team4.project.repository.IHotelRepository;
 import com.Team4.project.repository.IRoomDetailsRepository;
+import com.Team4.project.repository.ITransactionRepository;
 import com.Team4.project.repository.IUserRepository;
 import com.Team4.project.service.services.BookingDetailsService;
+import com.Team4.project.service.services.PaymentService;
+import com.Team4.project.service.services.TransactionService;
 import com.Team4.project.service.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +48,16 @@ public class UserController {
     IUserRepository userRepo;
     
     @Autowired
-
     IHotelRepository hotelRepo;
     
+    @Autowired
+    ITransactionRepository transRepo;
     
+    @Autowired
+    PaymentService paymentservice;
+    
+    @Autowired
+    TransactionService transservice;
 
     //GET method to show all users
     @GetMapping("/")
@@ -153,8 +164,20 @@ public class UserController {
 			
 			return this.bookingService.showAllBookingDetails();
 		}
-	
-	
+		
+		//Adding payment
+		@PostMapping("/payment")
+		public Payment addPayment(@RequestBody Payment payment) {
+			Transaction t = transRepo.findById(payment.getTransaction_id()).get();
+			payment.setTransaction(t);
+			return paymentservice.addPayment(payment);
+		}
+		
+		//Adding transaction
+		@PostMapping("/transaction")
+		public Transaction addTransaction(@RequestBody Transaction transaction) {
+			return transservice.addTransaction(transaction);
+		}
 	
     
 	}
