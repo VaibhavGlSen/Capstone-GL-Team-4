@@ -24,6 +24,8 @@ public class HotelController {
 	@Autowired
 	IRoomDetailsRepository roomrepo;
 	
+	
+	//Post Method for adding Hotel
 	@PostMapping("/")
 	public Hotel addHotel(@RequestBody Hotel hotel) {
 		
@@ -45,11 +47,15 @@ public class HotelController {
 		return hotel;
 	}
 	
+	
+	//Get Method for fetching all Hotels
 	@GetMapping("/")
 	public List<Hotel> showHotel(){
 		return hotelservice.showAllHotels();
 	}
 	
+	
+	//PUT method for updating Hotel with Id
 	@PutMapping("/{id}")
 	public ResponseEntity<Hotel> updateHotel(@PathVariable("id") int id, @RequestBody Hotel hotel){
 		Optional<Hotel> hotelById = hotelservice.showHotel(id);
@@ -78,13 +84,18 @@ public class HotelController {
 		return ResponseEntity.ok(updateHotel);
 	}
 	
+	
+	//Delete method for deleting Hotel details by Id
 	@DeleteMapping("/{id}")
 	public String deleteHotel(@PathVariable("id") int id) {
 		Optional<Hotel> hotel = hotelservice.showHotel(id);
 		if(hotel.isEmpty())
 			throw new HotelsNotFoundException("hotel with id "+id+" not exists");
-		return hotelservice.removeHotel(id);	}
+		return hotelservice.removeHotel(id);	
+		}
 	
+	
+	//Get Method for fetching Hotel by Id
 	@GetMapping("/{id}")
 	public Hotel getHotelbyId(@PathVariable("id") int id) {
 		Optional<Hotel> hotel = hotelservice.showHotel(id);
@@ -92,6 +103,8 @@ public class HotelController {
 			throw new HotelsNotFoundException("hotel with id "+id+" not exists");
 		return hotel.get();	}
 	
+	
+	//GET method to fetch hotel by hotel name
 	@GetMapping("/name/{name}")
 	public List<Hotel> getHotelbyName(@PathVariable("name") String name) {
 		List<Hotel> hotel = hotelservice.getHotelByHotel_name(name);

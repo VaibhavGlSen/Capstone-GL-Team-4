@@ -16,11 +16,15 @@ public class BookingDetailsServiceImpl implements BookingDetailsService{
 	@Autowired
 	IBookingDetailsRepository repo;
 
+	
+	//To add booking details
 	@Override
 	public BookingDetails addBookingDetails(BookingDetails bookingdetails) {
 		repo.save(bookingdetails);
 		return bookingdetails;
 	}
+	
+	//Update booking details
 
 	@Override
 	public BookingDetails updateBookingDetails(BookingDetails bookingdetails) {
@@ -28,22 +32,27 @@ public class BookingDetailsServiceImpl implements BookingDetailsService{
 		return bookingdetails;
 	}
 
+	//delete booking details by Id
 	@Override
 	public String removeBookingDetails(int id) {
 		repo.deleteById(id);
 		return "Record has been deleted!";
 	}
 
+	
+	//fetch all booking details
 	@Override
 	public List<BookingDetails> showAllBookingDetails() {
 		return repo.findAll();
 	}
 
+	
+	//show booking details by Id
 	@Override
-	public BookingDetails showBookingDetails(int id) {
-		Optional<BookingDetails>details=repo.findById(id);
-		if(!details.isPresent())
-			throw new BookingsNotFoundException();
-		return details.get();	}
+	public Optional<BookingDetails> showBookingDetails(int id) {
+		return this.repo.findById(id);
+		
+		
+	}
 
 }
